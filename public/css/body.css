@@ -1,0 +1,11 @@
+body {
+	height: 88.3vh;
+    background-image: url(../assets/plano-de-fundo.jpg);
+    background-repeat: no-repeat;
+    background-position: center left;
+    background-size: cover;
+}
+
+.form-group, label {
+	font-size: 1.2em;
+}
