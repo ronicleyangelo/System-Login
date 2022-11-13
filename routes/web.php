@@ -1,7 +1,7 @@
 <?php
 
  use Illuminate\Routing\RouteGroup;
- use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +15,16 @@
 */
 Route::group(['namespace'     => 'Admin'], function (){
 	Route::group(['namespace' => 'FluxoLogin'], function () {
-		Route::get('/', 'LoginController@index')->name('login');
-		Route::post('/logar', 'LoginController@store')->name('autenticar-login');
+		Route::get('/login', 'LoginController@index')->name('login');
+		Route::post('/logado', 'LoginController@store')->name('autenticar-login');
 	});
-	Route::group(['namespace' => 'FluxoCadastro'], function() {
+	Route::group(['namespace' => 'FluxoCadastro'], function () {
 		Route::get('/formulario-cadastro', 'CadastroController@index')->name('formulario-cadastro');
 		Route::get('/cadastrar-usuario', 'CadastroController@cadastrarUsuario')->name('cadastrar-usuario');
 		Route::post('/salvar-usuario', 'CadastroController@salvarUsuario')->name('salvar-usuario');
+	});
+	Route::group(['namespace' => 'Sila'], function () {
+		Route::get('/sila', 'SilaController@index')->name('sila');
 	});
 });
 

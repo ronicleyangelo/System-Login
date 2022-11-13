@@ -15,9 +15,9 @@ class CreateCadastrarsTable extends Migration
     {
         Schema::create('cadastrar', function (Blueprint $table) {
             $table->increments('numero')->unique();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('senha');
+            $table->string('name')->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('senha')->nullable();
             $table->timestamps();
         });
     }

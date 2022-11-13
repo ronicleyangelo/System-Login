@@ -8,29 +8,42 @@ use App\Model\Cadastrar;
 
 class LoginController extends Controller
 {
-    public function index() {
+    public function index() 
+    {
+        $usuario = Cadastrar::informacoes();
+        $dados = [
+            'usuario' => $usuario,
+        ];
+        return view('Login.login', ['dados' => $dados]);
+    }
 
-    $usuario = Cadastrar::informacoes();
-    $dados = [
-        'usuario' => $usuario,
-    ];
-    return view('Login.login', ['dados' => $dados]);
-  }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function store(Request $request)
     {
-
-       $usuario = Cadastrar::login($request);
-       if(sizeOf($usuario) > 0) {
+        $usuario = Cadastrar::autenticar($request);
+        $dados   = [
+            'usuario' => $usuario,
+        ];
+        $usuario->senha = $request->Senha;
+        $usuario->email = $request->Email;
+        if(sizeOf(Hash::check('Senha',$usuario->senha) > 0 )){
             $dados = [
-                'usuario' => $usuario
+                'usuario' => $usuario,
             ];
-            return view('Cadastrar.conteudo', ['dados' => $dados]);
-        };
-        return view('Login.login');
+            return view('Sila.sila', ['dados' => $dados]);
+        } else {
+            return back()->withErrors([
+                'Email' => 'Email não cadastrado',
+                'Senha' => 'Senha incorreta'
+            ])->onlyInput('Email');
+        }
     }
 }
+
+
+// if(sizeOf($usuario) > 0) {
+//                 console.log($e);
+//                 $dados = [
+//                     'usuario' => $usuario,
+//                 ];
+//                 return view('Sila.sila', ['dados' => $dados]);
+//             } 

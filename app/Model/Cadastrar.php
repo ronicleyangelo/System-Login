@@ -10,23 +10,23 @@ class Cadastrar extends Model
     protected $primaryKey = 'numero';
 
     public static function informacoes() {
-    	$obejto = DB::table('cadastrar')
+    	$objeto = DB::table('cadastrar')
     		->select('numero','name','email')
     		->orderByDesc('name', 'ASC')
     		->get();
-    	return $obejto;
+    	return $objeto;
     }
     public static function salvar($request) {
-    	$obejto = DB::table('cadastrar')
+    	$objeto = DB::table('cadastrar')
             ->where('email', $request->email)->count()
     		->get();
-    	return $obejto;
+    	return $objeto;
     }
-    public static function login($request) {
-        $obejto = DB::table('cadastrar')
-            ->where('email', $request->email)
-            ->where('senha', $request->password)
+    public static function autenticar($request) {
+        $objeto = DB::table('cadastrar')
+            ->where('email', $request->Email)
+            ->select('senha','email', 'numero')
             ->get();
-        return $obejto;
+        return $objeto;
     }
 }
